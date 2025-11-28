@@ -1,0 +1,16 @@
+{
+  // Activation des suggestions et autocomplétion
+  "editor.tabCompletion": "on",
+  "editor.quickSuggestions": { "other": true, "comments": false, "strings": false },
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.suggestSelection": "first",
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+
+  // Paramètres Python / Jupyter pour de meilleures complétions
+  "python.languageServer": "Pylance",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.autoSearchPaths": true,
+  "python.analysis.useLibraryCodeForTypes": true,
+  "jupyter.interactiveWindow.codeLens.commands": true
+}
