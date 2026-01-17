@@ -19,7 +19,7 @@ def extract_data(base_folder="DATA"):
             chemin_fichier = os.path.join(chemin_dossier, fichier)
             if not fichier.endswith(".csv"):
                 continue
-            df = pd.read_csv(chemin_fichier, sep=';')
+            df = pd.read_csv(chemin_fichier, sep=';', low_memory=False)
             df['annee'] = dossier
             if fichier.startswith("caract"):
                 dfs_caract.append(df)
@@ -34,5 +34,9 @@ def extract_data(base_folder="DATA"):
     df_lieux = pd.concat(dfs_lieux, ignore_index=True) if dfs_lieux else pd.DataFrame()
     df_usagers = pd.concat(dfs_usagers, ignore_index=True) if dfs_usagers else pd.DataFrame()
     df_vehicules = pd.concat(dfs_vehicules, ignore_index=True) if dfs_vehicules else pd.DataFrame()
+
+    df_vehicules['id_vehicule'] = df_vehicules['id_vehicule'].str.replace('\xa0', '', regex=False)
+    df_usagers['id_vehicule'] = df_usagers['id_vehicule'].str.replace('\xa0', '', regex=False)
+    df_usagers['id_usager'] = df_usagers['id_usager'].str.replace('\xa0', '', regex=False)
 
     return df_caract, df_lieux, df_usagers, df_vehicules
