@@ -8889,7 +8889,7 @@ Le F1-Score a augmenté de 8 points, le modèle prédit moins de faux négatifs 
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><a id="33"></a></p>
 <h3 id="3.3-R%C3%A9seau-de-neurones">3.3 Réseau de neurones<a class="anchor-link" href="#3.3-R%C3%A9seau-de-neurones">¶</a></h3><div style="text-align: justify;">  
-Passons au dernier modéle que nous allons tester : un réseau de neurones <i>MLPClassifier()</i>.
+Passons au dernier modéle que nous allons tester : un réseau de neurones <i>MLPClassifier()</i>. Le réseau de neurones est idéal pour capturer des relations plus complexes au sein des données. Cependant, plus le modèle est complexe, plus le temps d'entraînement est long. Nous allons donc nous limiter à une petite grille d'hyperparamètres lors de la validation du modèle.
 </div>
 <h4 id="R%C3%A9seau-de-neurones-V1">Réseau de neurones V1<a class="anchor-link" href="#R%C3%A9seau-de-neurones-V1">¶</a></h4><p>Hyperparamètres :</p>
 <ul>
@@ -9088,6 +9088,19 @@ Accuracy : 0.79
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a3bdc1fb">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="Analyse-des-r%C3%A9sultats">Analyse des résultats<a class="anchor-link" href="#Analyse-des-r%C3%A9sultats">¶</a></h4><div style="text-align: justify;">  
+L'accuracy et l'AUC sont aussi bon que les modèles précédents, cependant le F1-Score reste inférieur à celui obtenu dans la deuxième version du XGBoost. Cela entraîne une plus grande proportion de faux négatifs, qu'on cherche à éviter.
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e93b6937">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -9120,7 +9133,7 @@ L’objectif de ce projet était de prédire le risque d’accident grave à par
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div style="text-align: justify;">  
-Au-delà des performances prédictives, cette étude a permis d’identifier plusieurs facteurs déterminants du risque d’accident grave chez les cyclistes. Les résultats montrent que les accidents survenant hors agglomération présentent un risque significativement plus élevé, probablement en raison de vitesses plus importantes et d’infrastructures moins adaptées. Les collisions frontales apparaissent également comme particulièrement dangereuses, tout comme les accidents se produisant de nuit, où la visibilité est réduite. L’âge et la vitesse maximale autorisée sur la voie sont associés à une augmentation progressive du risque, traduisant une vulnérabilité accrue dans des contextes de circulation plus rapides. Par ailleurs, certains profils et situations spécifiques, tels que le types de trajet ou la présence d’obstacles, sont liés à une probabilité plus élevée d’accident grave. À l’inverse, le port d’équipements de protection constitue un facteur fortement protecteur, réduisant significativement la gravité des accidents. Le fait de circuler sur des voies communales ou dans des environnements moins contraignants contribue également à diminuer le risque. Ces résultats, cohérents avec les connaissances en sécurité routière, soulignent l’importance de mesures ciblées sur l’infrastructure, la visibilité et la protection des cyclistes afin de réduire la gravité des accidents.
+Au-delà des performances prédictives, cette étude a permis d’identifier plusieurs facteurs déterminants du risque d’accident grave chez les cyclistes. Les résultats montrent que les accidents survenant hors agglomération présentent un risque significativement plus élevé, probablement en raison de vitesses plus importantes et d’infrastructures moins adaptées. Les collisions frontales apparaissent également comme particulièrement dangereuses, tout comme les accidents se produisant de nuit, où la visibilité est réduite. L’âge et la vitesse maximale autorisée sur la voie sont associés à une augmentation progressive du risque, traduisant une vulnérabilité accrue dans des contextes de circulation plus rapides. Par ailleurs, certains profils et situations spécifiques, tels que le types de trajet ou la présence d’obstacles, sont liés à une probabilité plus élevée d’accident grave. À l’inverse, le port d’équipements de protection constitue un facteur fortement protecteur, réduisant significativement la gravité des accidents. Le fait de circuler sur des voies réservées, telles que des pistes cyclables, contribue également à diminuer le risque. Ces résultats, cohérents avec les connaissances en sécurité routière, soulignent l’importance de mesures ciblées sur l’infrastructure, la visibilité et la protection des cyclistes afin de réduire la gravité des accidents.
 </div>
 </div>
 </div>
