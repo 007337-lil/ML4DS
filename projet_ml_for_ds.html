@@ -7554,7 +7554,9 @@ div.output_area {
 1.5 <a href="#15">Choix de la problématique</a></li>
 <li><a href="#explo">Exploration</a><br/>
 2.1 <a href="#21">Préparation des données</a><br/>
-2.2 <a href="#22">Statistiques descriptives</a></li>
+2.2 <a href="#22">Statistiques descriptives</a><br/>
+2.3 <a href="#23">Critique de l'IA</a><br/>
+2.4 <a href="#24">Modifications en conséquences</a></li>
 <li><a href="#model">Modélisation</a><br/>
 3.1 <a href="#31">Régression logistique binaire</a><br/>
 3.2 <a href="#32">XGBoost binary classifier</a><br/>
@@ -8886,7 +8888,16 @@ Le F1-Score a augmenté de 8 points, le modèle prédit moins de faux négatifs 
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><a id="33"></a></p>
-<h3 id="3.3-R%C3%A9seau-de-neurones">3.3 Réseau de neurones<a class="anchor-link" href="#3.3-R%C3%A9seau-de-neurones">¶</a></h3>
+<h3 id="3.3-R%C3%A9seau-de-neurones">3.3 Réseau de neurones<a class="anchor-link" href="#3.3-R%C3%A9seau-de-neurones">¶</a></h3><div style="text-align: justify;">  
+Passons au dernier modéle que nous allons tester : un réseau de neurones <i>MLPClassifier()</i>.
+</div>
+<h4 id="R%C3%A9seau-de-neurones-V1">Réseau de neurones V1<a class="anchor-link" href="#R%C3%A9seau-de-neurones-V1">¶</a></h4><p>Hyperparamètres :</p>
+<ul>
+<li><em>hidden_size_layer</em> : architecture du réseau de neurones<br/>
+(50,) = une couche cachée de 50 neurones</li>
+<li><em>max_iter</em> : nombre maximal d'itérations d'entraînement (convergence)</li>
+<li><em>solver</em> : adam est rapide, robuste est adapté aux petits jeux de données</li>
+</ul>
 </div>
 </div>
 </div>
@@ -8957,6 +8968,26 @@ F1-score : 0.56
 Accuracy : 0.78
 </pre>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0317a890">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="R%C3%A9seau-de-neurones-V2">Réseau de neurones V2<a class="anchor-link" href="#R%C3%A9seau-de-neurones-V2">¶</a></h4><p>Hyperparamètres :</p>
+<ul>
+<li><em>hidden_size_layer</em> : test de réseaux plus denses</li>
+<li><em>activation</em> : ReLU efficace et rapide à entraîner</li>
+<li><em>alpha</em> : paramètre de régularisation L2 (alpha élevé réduit le surapprentissage)</li>
+<li><em>learning_rate</em> : stratégie d'évolution du taux d'apprentissage<br/>
+constant : taux d'apprentissage fixe
+adaptive : taux diminue si la performance de validation stagne</li>
+<li><em>early_stopping</em> = True : arrêt de l'entraînement lorsque la performance sur le jeu de validation ne s'améliore plus</li>
+</ul>
 </div>
 </div>
 </div>
@@ -9069,6 +9100,32 @@ Accuracy : 0.79
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=62da11ac">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div style="text-align: justify;">  
+L’objectif de ce projet était de prédire le risque d’accident grave à partir de caractéristiques liées à l’usager, au contexte et aux conditions de circulation. La régression logistique ne constitue pas le modèle le plus performant en termes de capacité prédictive. Néanmoins, elle présente un intérêt majeur en raison de son caractère interprétable, permettant d’identifier les variables ayant un impact significatif sur la variable cible à travers l’analyse des coefficients estimés. Cette approche offre ainsi une compréhension claire des facteurs augmentant ou réduisant le risque d’accident grave, complétant efficacement les modèles plus complexes tels que XGBoost. En effet, XGBoost est le modèle qui nous permet de minimiser au mieux les faux négatifs (classer un accident grave comme non grave), mais il est également légèrement moins interprétable. Le réseau de neurones n'offre pas de résultats aussi satisfaisant que le XGBoost concernant l'équilibre des classes. Plus d'accident graves sont classés comme non grave lors du test sur de nouvelles données. 
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=10f4e40f">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div style="text-align: justify;">  
+Au-delà des performances prédictives, cette étude a permis d’identifier plusieurs facteurs déterminants du risque d’accident grave chez les cyclistes. Les résultats montrent que les accidents survenant hors agglomération présentent un risque significativement plus élevé, probablement en raison de vitesses plus importantes et d’infrastructures moins adaptées. Les collisions frontales apparaissent également comme particulièrement dangereuses, tout comme les accidents se produisant de nuit, où la visibilité est réduite. L’âge et la vitesse maximale autorisée sur la voie sont associés à une augmentation progressive du risque, traduisant une vulnérabilité accrue dans des contextes de circulation plus rapides. Par ailleurs, certains profils et situations spécifiques, tels que le types de trajet ou la présence d’obstacles, sont liés à une probabilité plus élevée d’accident grave. À l’inverse, le port d’équipements de protection constitue un facteur fortement protecteur, réduisant significativement la gravité des accidents. Le fait de circuler sur des voies communales ou dans des environnements moins contraignants contribue également à diminuer le risque. Ces résultats, cohérents avec les connaissances en sécurité routière, soulignent l’importance de mesures ciblées sur l’infrastructure, la visibilité et la protection des cyclistes afin de réduire la gravité des accidents.
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b3834c0d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -9077,6 +9134,19 @@ Accuracy : 0.79
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><a id="5"></a></p>
 <h2 id="5.-Retour-d'exp%C3%A9rience">5. Retour d'expérience<a class="anchor-link" href="#5.-Retour-d'exp%C3%A9rience">¶</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=37d60640">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div style="text-align: justify;">  
+L’IA générative a été utilisée tout au long du projet comme un outil d’assistance à la fois technique et rédactionnelle. Sur le plan technique, elle a permis un gain de temps significatif grâce à l’autocomplétion de code, à la rédaction des mappings nécessaires aux regroupements de variables (réalisés à partir de la description du fichier BAAC) ainsi qu’à la proposition de variables pertinentes à conserver et d’hyperparamètres à tester lors de la phase de modélisation. Sur le plan rédactionnel, l’IA a contribué à l’analyse et à la formulation d’interprétations des résultats obtenus. Elle a ainsi joué le rôle d’un troisième regard sur le travail réalisé, facilitant la structuration et la clarification des analyses. Néanmoins, il demeure essentiel de conserver un esprit critique, l’IA ayant tendance à confirmer ou renforcer ce que nous lui proposons. Dans ce cadre, les risques éthiques sont donc limités, l'IA devient une assistance technique, facilitant les tâches chronophages, mais également un outil d'aide à la décision.
+</div>
 </div>
 </div>
 </div>
