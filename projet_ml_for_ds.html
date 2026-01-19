@@ -7684,7 +7684,7 @@ Notre premier choix de problématique portait sur l’identification des zones �
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><a id="21"></a></p>
 <h3 id="2.1-Pr%C3%A9paration-des-donn%C3%A9es">2.1 Préparation des données<a class="anchor-link" href="#2.1-Pr%C3%A9paration-des-donn%C3%A9es">¶</a></h3><div style="text-align: justify;">  
-Le script prep.py contient la fonction data_prep permettant de préparer et nettoyer les données.
+Le script extract.py contient la fonction extract_data permettant d'extraire les données des fichiers CSV et des les charger dans chacun des DataFrames (caract, lieux, usagers, vehicules). Le script prep.py contient la fonction data_prep, prenant en entrée les 4 DataFrames créés précédemment et permettant de préparer et nettoyer les données.
 </div>
 <ul>
 <li>Jointure des tables <em>usagers</em> et <em>véhicules</em> sur <em>Num_Acc</em> et <em>id_vehicule</em></li>
@@ -8168,9 +8168,29 @@ Name: proportion, dtype: float64</pre>
 <h3 id="2.4-Modifications-en-cons%C3%A9quence">2.4 Modifications en conséquence<a class="anchor-link" href="#2.4-Modifications-en-cons%C3%A9quence">¶</a></h3><div style="text-align: justify;">  
 La distribution de la variable cible au sein des différentes modalités des variables explicatives reste globalement stable, avec une forte prédominance des blessés légers, quelle que soit la variable considérée. Cette observation met en évidence un déséquilibre marqué de la variable cible. En effet, sur la période 2021–2024, seuls 4,1 % des individus impliqués dans un accident de la route (968 personnes) sont tués, ce qui constitue une classe extrêmement minoritaire.  
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=85ca702d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div style="text-align: justify;">  
 Conserver cette modalité rare dans une problématique de classification multi-classes présente plusieurs inconvénients méthodologiques. D’une part, elle augmente le risque de surapprentissage sur un nombre limité d’observations. D’autre part, elle peut conduire à des performances trompeuses, les modèles ayant tendance à privilégier la prédiction des classes majoritaires.
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=78647e33">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div style="text-align: justify;">  
 Dans ce contexte, nous faisons le choix de reformuler la problématique en une tâche de classification binaire, en transformant la variable cible <i>grav</i>. Les modalités tué et blessé grave sont regroupées au sein d’une classe « accident grave », tandis que les modalités indemne et blessé léger constituent la classe « accident non grave ». Ce regroupement permet à la fois de rééquilibrer partiellement la variable cible, d’améliorer la robustesse statistique des modèles, et de recentrer l’analyse sur un enjeu opérationnel majeur : l’identification des situations à fort risque de gravité pour les cyclistes.
 </div>
@@ -8244,6 +8264,8 @@ Transformation de la gravité des blessures en variable binaire<br/>
 <li>Accuracy : Proportion d'observations correctement prédites<br/>
 0: toutes les prédictions sont incorrectes, 1: toutes les prédictions sont correctes</li>
 </ul>
+<p>Entraînement sur 80% des données et test sur 20%.<br/>
+<em>stratify = y</em> garantit la répartition des classes dans les ensembles d'entraînement et de test.</p>
 </div>
 </div>
 </div>
@@ -8599,10 +8621,12 @@ Variable moment_journee, modalité supprimée : Après-midi
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h4 id="Analyse-des-r%C3%A9sultats">Analyse des résultats<a class="anchor-link" href="#Analyse-des-r%C3%A9sultats">¶</a></h4><p>Variables augmentant le risque d'accident grave :</p>
+<h4 id="Analyse-des-r%C3%A9sultats">Analyse des résultats<a class="anchor-link" href="#Analyse-des-r%C3%A9sultats">¶</a></h4><p>Pour les variables binaires, référence = 0.<br/>
+Pour les variables catégorielles, modalité de référence disponibles ci-dessus.</p>
+<p>Variables augmentant le risque d'accident grave :</p>
 <ul>
 <li>Hors agglomération : rouler hors agglomération augmente fortement le risque</li>
-<li>Promenade : catégorie de trajet la plus risquée (car la plus représentée)</li>
+<li>Promenade : catégorie de trajet la plus risquée (biais car catégorie la plus représentée)</li>
 <li>Age : le risque augmente avec l'âge</li>
 <li>Frontale : les collisions frontales sont les plus dangereuses</li>
 <li>VMA : augmentation du risque avec la vitesse maximale autorisée</li>
@@ -9095,7 +9119,7 @@ Accuracy : 0.79
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h4 id="Analyse-des-r%C3%A9sultats">Analyse des résultats<a class="anchor-link" href="#Analyse-des-r%C3%A9sultats">¶</a></h4><div style="text-align: justify;">  
-L'accuracy et l'AUC sont aussi bon que les modèles précédents, cependant le F1-Score reste inférieur à celui obtenu dans la deuxième version du XGBoost. Cela entraîne une plus grande proportion de faux négatifs, qu'on cherche à éviter.
+Pour le réseau de neurones, l'accuracy et l'AUC sont aussi bon que les modèles précédents, cependant le F1-Score reste inférieur à celui obtenu dans la deuxième version du XGBoost. Cela entraîne davantage de faux négatifs, ce que nous cherchons à minimiser.
 </div>
 </div>
 </div>
@@ -9120,7 +9144,7 @@ L'accuracy et l'AUC sont aussi bon que les modèles précédents, cependant le F
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div style="text-align: justify;">  
-L’objectif de ce projet était de prédire le risque d’accident grave à partir de caractéristiques liées à l’usager, au contexte et aux conditions de circulation. La régression logistique ne constitue pas le modèle le plus performant en termes de capacité prédictive. Néanmoins, elle présente un intérêt majeur en raison de son caractère interprétable, permettant d’identifier les variables ayant un impact significatif sur la variable cible à travers l’analyse des coefficients estimés. Cette approche offre ainsi une compréhension claire des facteurs augmentant ou réduisant le risque d’accident grave, complétant efficacement les modèles plus complexes tels que XGBoost. En effet, XGBoost est le modèle qui nous permet de minimiser au mieux les faux négatifs (classer un accident grave comme non grave), mais il est également légèrement moins interprétable. Le réseau de neurones n'offre pas de résultats aussi satisfaisant que le XGBoost concernant l'équilibre des classes. Plus d'accident graves sont classés comme non grave lors du test sur de nouvelles données. 
+L’objectif de ce projet était de prédire le risque d’accident grave à partir de caractéristiques liées à l’usager, au contexte et aux conditions de circulation. La régression logistique ne constitue pas le modèle le plus performant en termes de capacité prédictive. Néanmoins, son intérêt repose dans son interprétabilité, permettant d’identifier les variables ayant un impact significatif sur la variable cible à travers l’analyse des coefficients. Cette approche offre ainsi une compréhension claire des facteurs augmentant ou réduisant le risque d’accident grave, complétant efficacement les modèles plus complexes tels que XGBoost. En effet, XGBoost est le modèle qui nous permet de minimiser au mieux les faux négatifs (classer un accident grave comme non grave), mais il est également légèrement moins interprétable. Enfin, le réseau de neurones n'offre pas de résultats aussi satisfaisant que le XGBoost concernant l'équilibre des classes.
 </div>
 </div>
 </div>
@@ -9133,7 +9157,33 @@ L’objectif de ce projet était de prédire le risque d’accident grave à par
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div style="text-align: justify;">  
-Au-delà des performances prédictives, cette étude a permis d’identifier plusieurs facteurs déterminants du risque d’accident grave chez les cyclistes. Les résultats montrent que les accidents survenant hors agglomération présentent un risque significativement plus élevé, probablement en raison de vitesses plus importantes et d’infrastructures moins adaptées. Les collisions frontales apparaissent également comme particulièrement dangereuses, tout comme les accidents se produisant de nuit, où la visibilité est réduite. L’âge et la vitesse maximale autorisée sur la voie sont associés à une augmentation progressive du risque, traduisant une vulnérabilité accrue dans des contextes de circulation plus rapides. Par ailleurs, certains profils et situations spécifiques, tels que le types de trajet ou la présence d’obstacles, sont liés à une probabilité plus élevée d’accident grave. À l’inverse, le port d’équipements de protection constitue un facteur fortement protecteur, réduisant significativement la gravité des accidents. Le fait de circuler sur des voies réservées, telles que des pistes cyclables, contribue également à diminuer le risque. Ces résultats, cohérents avec les connaissances en sécurité routière, soulignent l’importance de mesures ciblées sur l’infrastructure, la visibilité et la protection des cyclistes afin de réduire la gravité des accidents.
+Au-delà des performances prédictives, cette étude a permis d’identifier plusieurs facteurs déterminants du risque d’accident grave chez les cyclistes. Les résultats montrent que les accidents survenant hors agglomération présentent un risque significativement plus élevé, probablement en raison de vitesses plus importantes et d’infrastructures moins adaptées. Les collisions frontales apparaissent également comme particulièrement dangereuses, tout comme les accidents se produisant de nuit, où la visibilité est réduite. L’âge et la vitesse maximale autorisée sur la voie sont associés à une augmentation progressive du risque, traduisant une vulnérabilité accrue dans des contextes de circulation plus rapides. À l’inverse, le port d’équipements de protection, tels qu'un casque ou un gilet réfléchissant, ainsi que la circulation sur des voies réservées, telles que des pistes cyclables, contribuent à diminuer le risque d'accident grave. Ces résultats, cohérents avec les connaissances en sécurité routière, soulignent l’importance de mesures ciblées sur l’infrastructure, la visibilité et la protection des cyclistes afin de réduire la gravité des accidents.
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9b46b6f6">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div style="text-align: justify;">  
+Quelques limites sont à souligner. Premièrement la répartition de la variable cible au sein des modalités des variables explicatives. Bien que les variables initiales contiennent un grand nombre de modalités, la plupart des accidents, qu'ils soient graves ou non, se produisent généralement dans les mêmes conditions. Par exemple, le type de trajet majoritaire est la promenade, c'est donc également le type de trajet considéré comme étant le plus dangereux. Le type d'intersection est une variable qui nous paraissait également très intéressante au regard de notre problématique sur la sécurité des cyclistes. Cependant la plupart des accidents de la base BAAC se déroulent hors intersection, les résultats concernant les différents types d'intersection (giratoire, X, Y, T...) sont donc biaisés et difficilement interprétable.
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8426d5ff">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div style="text-align: justify;">  
+Pour remédier à ces biais, une des solutions serait d'agrandir le jeu de données en prenant les fichiers BAAC datant d'avant 2021. Cela pourrait nous permettre d'avoir une meilleure répartition des modalités et donc des variables plus discriminantes. 
 </div>
 </div>
 </div>
