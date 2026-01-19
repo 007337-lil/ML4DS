@@ -4,6 +4,15 @@ import os
 def extract_data(base_folder="DATA"):
     '''
     Extrait les données depuis les CSV stockés dans le dossier DATA
+
+    Paramètre:
+    - base_folder (string) : chemin du dossier contenant les données
+
+    Retourne:
+    - df_caract (pd.DataFrame) : table caractéristique
+    - df_lieux (pd.DataFrame) : table lieux
+    - df_usagers (pd.DataFrame) : table usagers
+    - df_vehicules (pd.DataFrame) : tables véhicules
     '''
     dfs_caract = []
     dfs_lieux = []
